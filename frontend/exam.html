@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Environment | TrustScore AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Monaco Editor Style Setup -->
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-surface);
+        }
+
+        /* GitHub dark style base */
+
+        .exam-header {
+            height: 60px;
+            background: rgba(15, 20, 30, 0.9);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            position: relative;
+        }
+
+        .exam-layout {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* Split Panes */
+        .pane-left {
+            width: 40%;
+            border-right: 1px solid var(--border-glass);
+            background: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pane-right {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-light);
+        }
+
+        .question-content {
+            padding: 2rem;
+            overflow-y: auto;
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .question-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-desc p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glass);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            font-family: monospace;
+            color: #a5d6ff;
+            margin-bottom: 1rem;
+        }
+
+        .editor-header {
+            height: 40px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            border-bottom: 1px solid var(--border-glass);
+            justify-content: space-between;
+        }
+
+        .lang-select {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        #editor {
+            flex: 1;
+        }
+
+        .editor-footer {
+            height: 50px;
+            background: #f1f5f9;
+            border-top: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 1rem;
+            gap: 1rem;
+        }
+
+        /* Proctoring UI Overlay */
+        .proctor-overlay {
+            position: fixed;
+            top: 70px;
+            right: 1.5rem;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 240px;
+            pointer-events: none;
+        }
+
+        /* Webcam Box */
+        .webcam-box {
+            background: #000;
+            border: 2px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .webcam-stream {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .webcam-status {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .status-good {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--emerald-green);
+            border-top: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .status-warn {
+            background: rgba(255, 60, 60, 0.2);
+            color: #ff5555;
+            border-top: 1px solid rgba(255, 60, 60, 0.3);
+        }
+
+        /* Live Risk Meter */
+        .risk-meter {
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .risk-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .risk-bar-fill {
+            height: 100%;
+            width: 12%;
+            background: var(--emerald-green);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 10px var(--emerald-green);
+        }
+
+        /* Warning Toast */
+        .warning-toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 50, 50, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .warning-toast.show {
+            top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Nav -->
+    <header class="exam-header">
+        <div class="logo flex items-center gap-2">
+            <i data-lucide="shield-check" class="text-neon-blue w-6 h-6"></i>
+            <span class="font-bold text-lg text-primary">TrustScore Exam</span>
+        </div>
+        <div class="timer flex items-center gap-2 font-mono text-xl font-bold text-primary">
+            <i data-lucide="clock" class="text-neon-blue w-5 h-5"></i>
+            <span id="countdown">45:00</span>
+        </div>
+        <div>
+            <button class="btn btn-secondary border-glass py-1 px-4 text-sm hover-bg-glass" onclick="finishExam()">End
+                Early</button>
+        </div>
+    </header>
+
+    <!-- Proctoring Overlay -->
+    <div class="proctor-overlay">
+        <div class="webcam-box">
+            <!-- Simulated Webcam using a dark gradient placeholder -->
+            <div class="webcam-stream" style="background: radial-gradient(circle at center, #333, #000);">
+                <!-- Face recognition overlay bracket simulation -->
+                <div
+                    style="position: absolute; top: 20%; left: 25%; width: 50%; height: 60%; border: 1px dashed rgba(0, 255, 157, 0.5); border-radius: 10px;">
+                </div>
+            </div>
+            <div class="webcam-status status-good" id="face-status">
+                <i data-lucide="scan-face" class="w-3 h-3"></i> Tracking Active
+            </div>
+        </div>
+
+        <div class="risk-meter">
+            <div class="risk-header">
+                <span>Live Risk</span>
+                <span id="risk-value" class="text-emerald">Low (12%)</span>
+            </div>
+            <div class="risk-bar-bg">
+                <div class="risk-bar-fill" id="risk-bar"></div>
+            </div>
+            <div class="text-xs text-muted mt-2 flex items-center gap-1">
+                <i data-lucide="activity" class="w-3 h-3"></i> Analyzing behavior...
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Toast -->
+    <div class="warning-toast" id="tab-warning">
+        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+        <div>
+            <div class="font-bold">Tab Switch Detected!</div>
+            <div class="text-sm font-normal">Leaving the exam environment increases your Risk Score.</div>
+        </div>
+    </div>
+
+    <div class="exam-layout">
+        <!-- Question Panel -->
+        <div class="pane-left">
+            <div class="question-content">
+                <h1 class="question-title">1. Merge K Sorted Lists</h1>
+                <div class="question-tags">
+                    <span class="badge bg-glass border text-xs"
+                        style="color: #f87171; border-color: rgba(248,113,113,0.3)">Hard</span>
+                    <span class="badge bg-glass border text-xs text-muted">Linked List</span>
+                    <span class="badge bg-glass border text-xs text-muted">Divide and Conquer</span>
+                    <span class="badge bg-glass border text-xs text-muted">Heap (Priority Queue)</span>
+                </div>
+                <div class="question-desc text-sm">
+                    <p>You are given an array of <code>k</code> linked-lists <code>lists</code>, each linked-list is
+                        sorted in ascending order.</p>
+                    <p>Merge all the linked-lists into one sorted linked-list and return it.</p>
+
+                    <h4 class="font-bold mt-6 mb-2 text-primary">Example 1:</h4>
+                    <div class="code-example">
+                        Input: lists = [[1,4,5],[1,3,4],[2,6]]
+                        Output: [1,1,2,3,4,4,5,6]
+                        Explanation: The linked-lists are:
+                        [
+                        1->4->5,
+                        1->3->4,
+                        2->6
+                        ]
+                        merging them into one sorted list:
+                        1->1->2->3->4->4->5->6
+                    </div>
+
+                    <h4 class="font-bold mt-6 mb-2 text-primary">Constraints:</h4>
+                    <ul class="list-disc pl-5 text-muted space-y-1">
+                        <li><code>k == lists.length</code></li>
+                        <li><code>0 <= k <= 10^4</code></li>
+                        <li><code>0 <= lists[i].length <= 500</code></li>
+                        <li><code>-10^4 <= lists[i][j] <= 10^4</code></li>
+                        <li><code>lists[i]</code> is sorted in ascending order.</li>
+                        <li>The sum of <code>lists[i].length</code> will not exceed <code>10^4</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Editor Panel -->
+        <div class="pane-right">
+            <div class="editor-header">
+                <div class="text-sm text-secondary font-mono">solution.py</div>
+                <select class="lang-select text-sm font-mono">
+                    <option value="python">Python 3</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="cpp">C++</option>
+                    <option value="java">Java</option>
+                </select>
+            </div>
+
+            <!-- Monaco Editor Container -->
+            <div id="editor"></div>
+
+            <div class="editor-footer">
+                <button class="btn btn-secondary border-glass py-1 px-4 text-sm">Run Custom Input</button>
+                <button class="btn btn-secondary border-glass py-1 px-4 text-sm text-emerald">Run Code</button>
+                <button class="btn btn-primary glow-accent py-1 px-6 text-sm" onclick="finishExam()">Submit
+                    Solution</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.41.0/min/vs/loader.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Initialize Monaco Editor
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.41.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                value: [
+                    '# Definition for singly-linked list.',
+                    '# class ListNode:',
+                    '#     def __init__(self, val=0, next=None):',
+                    '#         self.val = val',
+                    '#         self.next = next',
+                    'class Solution:',
+                    '    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:',
+                    '        # Write your smart and optimal logic here',
+                    '        pass'
+                ].join('\n'),
+                language: 'python',
+                theme: 'vs',
+                automaticLayout: true,
+                minimap: { enabled: false },
+                fontSize: 14,
+                fontFamily: "'JetBrains Mono', 'Fira Code', Consolas, monospace",
+                lineHeight: 22,
+                padding: { top: 16 }
+            });
+
+            // Simulate Copy/Paste restriction
+            editor.onKeyDown(function (e) {
+                // Command/Ctrl + V
+                if ((e.ctrlKey || e.metaKey) && e.keyCode === monaco.KeyCode.KeyV) {
+                    showWarning("Pasting from external sources is prohibited.");
+                    increaseRisk(15);
+                }
+            });
+        });
+
+        // Proctoring Logic Simulation
+        let riskScore = 12;
+        const riskBar = document.getElementById('risk-bar');
+        const riskValue = document.getElementById('risk-value');
+        const faceStatus = document.getElementById('face-status');
+
+        function increaseRisk(amount) {
+            riskScore = Math.min(100, riskScore + amount);
+            riskBar.style.width = riskScore + '%';
+
+            if (riskScore > 60) {
+                riskBar.style.background = '#ff5555';
+                riskBar.style.boxShadow = '0 0 10px #ff5555';
+                riskValue.textContent = `High (${riskScore}%)`;
+                riskValue.className = 'text-red-400';
+            } else if (riskScore > 30) {
+                riskBar.style.background = '#f5a623';
+                riskBar.style.boxShadow = '0 0 10px #f5a623';
+                riskValue.textContent = `Medium (${riskScore}%)`;
+                riskValue.style.color = '#f5a623';
+            } else {
+                riskValue.textContent = `Low (${riskScore}%)`;
+            }
+        }
+
+        function showWarning(text) {
+            const toast = document.getElementById('tab-warning');
+            toast.querySelector('.font-bold').textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Tab Switch Detection (Visibility API)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                faceStatus.className = 'webcam-status status-warn';
+                faceStatus.innerHTML = '<i data-lucide="camera-off" class="w-3 h-3"></i> Camera Off';
+                lucide.createIcons();
+            } else {
+                faceStatus.className = 'webcam-status status-good';
+                faceStatus.innerHTML = '<i data-lucide="scan-face" class="w-3 h-3"></i> Tracking Active';
+                lucide.createIcons();
+                showWarning("Tab Switch Detected!");
+                increaseRisk(20);
+            }
+        });
+
+        // Timer Logic
+        let timeLeft = 45 * 60; // 45 minutes
+        function updateTimer() {
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById('countdown').textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft > 0) timeLeft--;
+            else finishExam();
+        }
+        setInterval(updateTimer, 1000);
+
+        function finishExam() {
+            window.location.href = "submission-summary.html";
+        }
+    </script>
+</body>
+
+</html>

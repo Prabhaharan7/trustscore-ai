@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustScore AI | Intelligent Skill & Integrity Assessment Platform</title>
+    <meta name="description"
+        content="Beyond Cheating Detection. We Build Trust Intelligence for Recruiters, EdTech and Enterprises.">
+    <!-- Modern Typography: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-theme">
+    <!-- Navbar -->
+    <header class="navbar glass-panel">
+        <div class="container nav-content">
+            <div class="logo">
+                <i data-lucide="shield-check" class="logo-icon"></i>
+                <span>TrustScore AI</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#problem">Problem</a>
+                <a href="#solution">Solution</a>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-ghost">Log In</a>
+                <a href="#" class="btn btn-primary glow-accent">Request Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero overflow-hidden relative" id="hero">
+        <canvas id="network-canvas" class="hero-canvas"></canvas>
+        <div class="container hero-content relative z-10 text-center animate-fade-in-up">
+            <div class="badge inline-flex glow-emerald mb-6">Introducing Trust Intelligence 2.0</div>
+            <h1 class="hero-title text-gradient">Intelligent Skill &<br>Integrity Assessment</h1>
+            <p class="hero-subtitle">Beyond Cheating Detection. We Build Trust Intelligence for modern Recruiters,
+                EdTech platforms, and Enterprises.</p>
+            <div class="hero-cta-group">
+                <a href="#demo" class="btn btn-primary btn-large btn-glow glow-accent">Request Demo <i
+                        data-lucide="arrow-right"></i></a>
+                <a href="#dashboard" class="btn btn-secondary btn-large">Explore Dashboard</a>
+            </div>
+        </div>
+        <div class="hero-glow-bg"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section" id="problem">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">The Assessment Paradox</h2>
+                <p class="section-subtitle">Current online assessments are either too easy to cheat or overly invasive,
+                    ruining the candidate experience.</p>
+            </div>
+            <div class="grid grid-3 problem-grid">
+                <div class="card glass-panel fade-in-on-scroll">
+                    <div class="card-icon"><i data-lucide="eye-off"></i></div>
+                    <h3>Blind Spots</h3>
+                    <p>Traditional proctoring misses sophisticated collaboration and AI-assisted cheating methods.</p>
+                </div>
+                <div class="card glass-panel fade-in-on-scroll" style="transition-delay: 100ms;">
+                    <div class="card-icon"><i data-lucide="user-minus"></i></div>
+                    <h3>Poor Experience</h3>
+                    <p>Invasive webcam monitoring and strict rules create high anxiety and alienate top talent.</p>
+                </div>
+                <div class="card glass-panel fade-in-on-scroll" style="transition-delay: 200ms;">
+                    <div class="card-icon"><i data-lucide="trending-down"></i></div>
+                    <h3>Low Predictability</h3>
+                    <p>Passing a test doesn't guarantee the candidate actually possesses the documented skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section solution" id="solution">
+        <div class="container">
+            <div class="grid grid-2 align-center">
+                <div class="solution-content fade-in-on-scroll left">
+                    <div class="badge glow-blue mb-4">Our Technology</div>
+                    <h2 class="section-title">Trust Intelligence, Not Surveillance.</h2>
+                    <p class="text-large text-muted mb-6">TrustScore AI uses behavioral analysis, keystroke dynamics,
+                        and adaptive questioning to verify authenticity without invasive proctoring.</p>
+                    <ul class="feature-list">
+                        <li><i data-lucide="check-circle" class="text-emerald"></i> <strong>Adaptive AI Exams:</strong>
+                            Questions morph based on candidate responses.</li>
+                        <li><i data-lucide="check-circle" class="text-emerald"></i> <strong>Trust Score:</strong> A
+                            holistic 0-100 metric of assessment integrity.</li>
+                        <li><i data-lucide="check-circle" class="text-emerald"></i> <strong>Risk Scoring:</strong>
+                            Real-time flagging of anomalous behavior patterns.</li>
+                    </ul>
+                </div>
+                <div class="solution-visual fade-in-on-scroll right relative">
+                    <div class="glass-panel p-8 highlight-card">
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="circle glow-green-svg" stroke-dasharray="94, 100"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <text x="18" y="20.35" class="percentage">94%</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-center mt-4">High Trust Verified</h3>
+                        <p class="text-center text-sm text-muted mt-2">Candidate exhibits standard behavioral markers
+                            and consistent cognitive load.</p>
+                    </div>
+                    <div class="glow-orb orb-1"></div>
+                    <div class="glow-orb orb-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview Section -->
+    <section class="section bg-gradient-dark" id="dashboard">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2 class="section-title">A Command Center for Talent Integrity</h2>
+                <p class="section-subtitle">Everything you need to make confident hiring decisions in one
+                    highly-responsive, clean interface.</p>
+            </div>
+            <div class="dashboard-mockup-wrapper fade-in-on-scroll up relative">
+                <img src="assets/dashboard-mockup.png" alt="TrustScore AI Dashboard Mockup"
+                    class="dashboard-img glass-panel shadow-glow">
+                <div class="glow-orb orb-large beneath"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">How It Works</h2>
+            </div>
+            <div class="steps-container">
+                <div class="step fade-in-on-scroll">
+                    <div class="step-number glass-panel">1</div>
+                    <div class="step-content">
+                        <h3>Invite Candidates</h3>
+                        <p>Send secure links via our API or Dashboard. Candidates join instantly through their browser
+                            without installing plugins.</p>
+                    </div>
+                </div>
+                <!-- Connector line handled in CSS -->
+                <div class="step fade-in-on-scroll" style="transition-delay: 150ms;">
+                    <div class="step-number glass-panel">2</div>
+                    <div class="step-content">
+                        <h3>Adaptive Evaluation</h3>
+                        <p>Our AI engines continuously analyze inputs, adjusting difficulty and validating identity
+                            dynamically.</p>
+                    </div>
+                </div>
+                <div class="step fade-in-on-scroll" style="transition-delay: 300ms;">
+                    <div class="step-number glass-panel">3</div>
+                    <div class="step-content">
+                        <h3>Review TrustScore</h3>
+                        <p>Receive rich analytical reports detailing skills verified, alongside a holistic TrustScore
+                            and Risk indicators.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Grid -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="grid grid-2 section-feature">
+                <div class="feature-item fade-in-on-scroll glass-panel p-6">
+                    <div class="icon-wrap glow-blue-text"><i data-lucide="cpu"></i></div>
+                    <h4>Cognitive Load Analysis</h4>
+                    <p class="text-sm text-muted">Detects unnatural pacing indicative of looking up answers or utilizing
+                        secondary devices during tests.</p>
+                </div>
+                <div class="feature-item fade-in-on-scroll glass-panel p-6" style="transition-delay: 50ms;">
+                    <div class="icon-wrap glow-emerald-text"><i data-lucide="fingerprint"></i></div>
+                    <h4>Biometric Typing DNA</h4>
+                    <p class="text-sm text-muted">Authenticates the candidate via unique keystroke patterns constantly
+                        matching history.</p>
+                </div>
+                <div class="feature-item fade-in-on-scroll glass-panel p-6" style="transition-delay: 100ms;">
+                    <div class="icon-wrap glow-blue-text"><i data-lucide="bot"></i></div>
+                    <h4>Generative AI Defenses</h4>
+                    <p class="text-sm text-muted">Identifies copied output from ChatGPT, Claude, and specialized coding
+                        models with 99.8% precision.</p>
+                </div>
+                <div class="feature-item fade-in-on-scroll glass-panel p-6" style="transition-delay: 150ms;">
+                    <div class="icon-wrap glow-emerald-text"><i data-lucide="shield-alert"></i></div>
+                    <h4>Browser Lock & Monitor</h4>
+                    <p class="text-sm text-muted">Non-invasive tracking of tab switching, clipboard events, and
+                        unauthorized external monitors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section bg-gradient-dark" id="testimonials">
+        <div class="container">
+            <h2 class="section-title text-center mb-12">Trusted by Industry Leaders</h2>
+            <div class="grid grid-3 testimonial-grid">
+                <div class="testimonial-card glass-panel p-8 fade-in-on-scroll">
+                    <div class="rating text-emerald mb-4">
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                    </div>
+                    <p class="quote text-sm">"TrustScore completely eliminated our false-positive cheating detections
+                        while capturing actual GPT copies. The candidate experience is incredible."</p>
+                    <div class="author mt-6 flex items-center gap-4">
+                        <div
+                            class="avatar bg-neon-blue rounded-full w-10 h-10 flex items-center justify-center text-dark font-bold">
+                            SJ</div>
+                        <div>
+                            <div class="author-name font-semibold text-sm">Sarah Jenkins</div>
+                            <div class="author-role text-xs text-muted">VP Talent, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-panel p-8 fade-in-on-scroll" style="transition-delay: 100ms;">
+                    <div class="rating text-emerald mb-4">
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                    </div>
+                    <p class="quote text-sm">"We integrated their API in two days. Our EdTech completion rates improved
+                        by 25% because students no longer felt like they were in a police state."</p>
+                    <div class="author mt-6 flex items-center gap-4">
+                        <div
+                            class="avatar bg-emerald-green rounded-full w-10 h-10 flex items-center justify-center text-dark font-bold">
+                            MR</div>
+                        <div>
+                            <div class="author-name font-semibold text-sm">Mark Roberts</div>
+                            <div class="author-role text-xs text-muted">CTO, LearnFlow</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-panel p-8 fade-in-on-scroll" style="transition-delay: 200ms;">
+                    <div class="rating text-emerald mb-4">
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                        <i data-lucide="star" class="fill-current inline w-4 h-4 text-emerald"></i>
+                    </div>
+                    <p class="quote text-sm">"The TrustScore dashboard is gorgeous and fast. It feels like a premium
+                        product and gives us deep insights into how candidates approach problem solving."</p>
+                    <div class="author mt-6 flex items-center gap-4">
+                        <div
+                            class="avatar glow-accent rounded-full w-10 h-10 flex items-center justify-center text-dark font-bold">
+                            AL</div>
+                        <div>
+                            <div class="author-name font-semibold text-sm">Alicia Lin</div>
+                            <div class="author-role text-xs text-muted">Lead Recruiter, StartX</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">Transparent Pricing</h2>
+                <p class="section-subtitle">Scale your trust intelligence seamlessly.</p>
+            </div>
+            <div class="grid grid-3 pricing-grid scale-cards">
+                <div class="pricing-card glass-panel p-8 fade-in-on-scroll relative mt-6">
+                    <div class="tier-name text-muted font-bold mb-2">STARTER</div>
+                    <div class="price text-4xl font-bold mb-6">$290<span
+                            class="text-sm text-muted font-normal">/mo</span></div>
+                    <ul class="pricing-features space-y-3 mb-8">
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> Up to 500 assessments
+                        </li>
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> Core behavioral
+                            tracking</li>
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> Standard reporting</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary w-full text-center">Get Started</a>
+                </div>
+                <!-- Highlighted Tier -->
+                <div class="pricing-card glass-panel glow-border p-8 fade-in-on-scroll relative"
+                    style="transform: scale(1.05); z-index: 10;">
+                    <div class="badge glow-blue absolute -top-4 left-1/2 transform-center-x">Most Popular</div>
+                    <div class="tier-name text-neon-blue font-bold mb-2">SCALE</div>
+                    <div class="price text-4xl font-bold mb-6">$890<span
+                            class="text-sm text-muted font-normal">/mo</span></div>
+                    <ul class="pricing-features space-y-3 mb-8">
+                        <li><i data-lucide="check" class="text-neon-blue inline w-4 h-4 mr-2"></i> Up to 5,000
+                            assessments</li>
+                        <li><i data-lucide="check" class="text-neon-blue inline w-4 h-4 mr-2"></i> Advanced AI fraud
+                            detection</li>
+                        <li><i data-lucide="check" class="text-neon-blue inline w-4 h-4 mr-2"></i> Custom Trust Scores
+                        </li>
+                        <li><i data-lucide="check" class="text-neon-blue inline w-4 h-4 mr-2"></i> API Access included
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary glow-accent w-full text-center">Start Free Trial</a>
+                </div>
+                <div class="pricing-card glass-panel p-8 fade-in-on-scroll relative mt-6">
+                    <div class="tier-name text-muted font-bold mb-2">ENTERPRISE</div>
+                    <div class="price text-4xl font-bold mb-6">Custom</div>
+                    <ul class="pricing-features space-y-3 mb-8">
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> Unlimited assessments
+                        </li>
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> Dedicated success
+                            manager</li>
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> On-premise deployment
+                        </li>
+                        <li><i data-lucide="check" class="text-emerald inline w-4 h-4 mr-2"></i> White labeling</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary w-full text-center">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer border-t border-glass pt-16 pb-8">
+        <div class="container">
+            <div class="grid grid-4 mb-12">
+                <div class="footer-brand max-w-xs">
+                    <div class="logo mb-4">
+                        <i data-lucide="shield-check" class="logo-icon text-neon-blue"></i>
+                        <span class="font-bold text-xl ml-2">TrustScore AI</span>
+                    </div>
+                    <p class="text-sm text-muted">Building intelligent systems beyond surveillance to guarantee trust in
+                        a digital-first world.</p>
+                </div>
+                <div class="footer-links">
+                    <h5 class="font-semibold mb-4">Product</h5>
+                    <ul class="space-y-2 text-sm text-muted">
+                        <li><a href="#" class="hover-text-primary transition">Features</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Integrations</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Pricing</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5 class="font-semibold mb-4">Resources</h5>
+                    <ul class="space-y-2 text-sm text-muted">
+                        <li><a href="#" class="hover-text-primary transition">Documentation</a></li>
+                        <li><a href="#" class="hover-text-primary transition">API Reference</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Blog</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5 class="font-semibold mb-4">Company</h5>
+                    <ul class="space-y-2 text-sm text-muted">
+                        <li><a href="#" class="hover-text-primary transition">About Us</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Careers</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover-text-primary transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-glass pt-8 flex justify-between items-center text-sm text-muted">
+                <p>&copy; 2026 TrustScore AI, Inc. All rights reserved.</p>
+                <div class="social-links flex gap-4">
+                    <a href="#" class="hover-text-primary transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover-text-primary transition"><i data-lucide="github" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover-text-primary transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

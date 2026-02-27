@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | TrustScore AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .col-span-3 {
+            grid-column: span 3;
+        }
+
+        .col-span-4 {
+            grid-column: span 4;
+        }
+
+        .col-span-8 {
+            grid-column: span 8;
+        }
+
+        .col-span-12 {
+            grid-column: span 12;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th {
+            padding: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .data-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(0, 240, 255, 0.02);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="light-theme">
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="logo px-6 pb-4 border-b">
+                <i data-lucide="shield-check" class="logo-icon"></i>
+                <span>TrustScore Admin</span>
+            </a>
+            <nav class="sidebar-links">
+                <a href="#" class="sidebar-link active">
+                    <i data-lucide="pie-chart" class="w-5 h-5"></i> Overview
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i data-lucide="users" class="w-5 h-5"></i> Candidates
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i data-lucide="alert-triangle" class="w-5 h-5"></i> Risk Center
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i data-lucide="settings" class="w-5 h-5"></i> Settings
+                </a>
+            </nav>
+            <div class="mt-auto px-4 w-full">
+                <a href="login.html" class="sidebar-link mt-auto w-full text-red-400">
+                    <i data-lucide="log-out" class="w-5 h-5"></i> Log Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1 class="text-2xl font-bold">Admin Command Center</h1>
+                    <p class="text-muted text-sm">Real-time integrity and skill analytics for your candidate pool.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="btn btn-secondary py-1 px-3">
+                        <i data-lucide="bell" class="w-5 h-5 text-neon-blue"></i>
+                    </div>
+                    <div
+                        class="avatar glow-accent rounded-full w-10 h-10 flex items-center justify-center text-dark font-bold">
+                        A</div>
+                </div>
+            </header>
+
+            <!-- KPI Cards -->
+            <div class="dashboard-grid fade-in-on-scroll is-visible">
+                <div class="col-span-3 glass-panel stat-card">
+                    <div class="stat-card-title">Total Active Candidates</div>
+                    <div class="stat-card-value">1,248</div>
+                    <div class="stat-card-trend"><i data-lucide="trending-up" class="text-emerald w-3 h-3"></i> <span
+                            class="text-emerald">+12%</span> this week</div>
+                </div>
+                <div class="col-span-3 glass-panel stat-card">
+                    <div class="stat-card-title">Platform Average Trust</div>
+                    <div class="stat-card-value text-emerald">92%</div>
+                    <div class="stat-card-trend">Stable</div>
+                </div>
+                <div class="col-span-3 glass-panel stat-card">
+                    <div class="stat-card-title text-red-400">High Risk Flags</div>
+                    <div class="stat-card-value text-red-400">14</div>
+                    <div class="stat-card-trend"><i data-lucide="alert-circle" class="text-red-400 w-3 h-3"></i>
+                        Requires manual review</div>
+                </div>
+                <div class="col-span-3 glass-panel stat-card">
+                    <div class="stat-card-title">Assessments Completed</div>
+                    <div class="stat-card-value text-neon-blue">846</div>
+                    <div class="stat-card-trend"><i data-lucide="check-circle" class="w-3 h-3"></i> In last 30 days
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="dashboard-grid fade-in-on-scroll is-visible" style="transition-delay: 100ms;">
+                <!-- Risk Heatmap (Bar Chart representation) -->
+                <div class="col-span-8 glass-panel p-6">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="bar-chart-2" class="text-neon-blue w-5 h-5"></i> Risk Distribution by Role
+                    </h3>
+                    <div style="height: 300px; width: 100%;">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Skill Radar -->
+                <div class="col-span-4 glass-panel p-6 flex flex-col items-center">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 self-start w-full">
+                        <i data-lucide="pie-chart" class="text-emerald w-5 h-5"></i> Top Candidate Profile
+                    </h3>
+                    <div
+                        style="height: 250px; width: 100%; position: relative; display: flex; justify-content: center;">
+                        <canvas id="skillRadarChart"></canvas>
+                    </div>
+                    <p class="text-center text-xs text-muted mt-4">Aggregated strengths of candidates >90% Trust Score.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Candidate List and Leaderboard -->
+            <div class="dashboard-grid fade-in-on-scroll is-visible" style="transition-delay: 200ms;">
+                <div class="col-span-12 glass-panel p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold flex items-center gap-2">
+                            <i data-lucide="users" class="text-neon-blue w-5 h-5"></i> Recent Candidate Submissions
+                        </h3>
+                        <div class="flex gap-2">
+                            <button class="btn btn-secondary text-xs py-1">Filter <i data-lucide="filter"
+                                    class="w-3 h-3 ml-1"></i></button>
+                            <button class="btn btn-secondary text-xs py-1">Export CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>Role Applied</th>
+                                    <th>Tech Score</th>
+                                    <th>Trust Score</th>
+                                    <th>Risk Level</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="avatar rounded-full bg-glass border w-8 h-8 flex items-center justify-center text-xs">
+                                                EK</div>
+                                            <span class="font-semibold">Emma Kline</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">Senior Frontend</td>
+                                    <td class="font-mono">92/100</td>
+                                    <td class="text-emerald font-bold">98%</td>
+                                    <td><span class="badge glow-emerald text-xs">Low</span></td>
+                                    <td><button class="btn btn-ghost text-xs text-neon-blue p-0">View Logs</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="avatar rounded-full bg-glass border w-8 h-8 flex items-center justify-center text-xs">
+                                                JD</div>
+                                            <span class="font-semibold">John Doe</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">React Developer</td>
+                                    <td class="font-mono">84/100</td>
+                                    <td style="color:#f5a623" class="font-bold">68%</td>
+                                    <td><span class="badge bg-glass border text-xs"
+                                            style="color:#f5a623">Elevated</span></td>
+                                    <td><button class="btn btn-ghost text-xs text-neon-blue p-0">Review
+                                            Anomalies</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="avatar rounded-full bg-glass border w-8 h-8 flex items-center justify-center text-xs">
+                                                MC</div>
+                                            <span class="font-semibold">Marcus Chen</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">Backend Engineer</td>
+                                    <td class="font-mono">96/100</td>
+                                    <td class="text-red-400 font-bold">32%</td>
+                                    <td><span class="badge bg-glass border text-xs"
+                                            style="color:#ff5555; border-color: rgba(255,85,85,0.3)">Critical</span>
+                                    </td>
+                                    <td><button
+                                            class="btn btn-ghost text-xs text-red-400 p-0 hover-text-white transition"
+                                            onclick="alert('Displaying playback logs for Marcus Chen: 14 Tab switches, 3 external paste events detected.')">View
+                                            Logs</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="avatar rounded-full bg-glass border w-8 h-8 flex items-center justify-center text-xs">
+                                                SR</div>
+                                            <span class="font-semibold">Sarah Rivera</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">Data Scientist</td>
+                                    <td class="font-mono">89/100</td>
+                                    <td class="text-emerald font-bold">95%</td>
+                                    <td><span class="badge glow-emerald text-xs">Low</span></td>
+                                    <td><button class="btn btn-ghost text-xs text-neon-blue p-0">View Logs</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        // Chart.js Default styling config for light mode
+        Chart.defaults.color = '#64748B'; // Slate 500
+        Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.05)';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Risk Chart (Bar)
+        const ctxRisk = document.getElementById('riskChart').getContext('2d');
+        new Chart(ctxRisk, {
+            type: 'bar',
+            data: {
+                labels: ['Frontend', 'Backend', 'Data Science', 'DevOps', 'Mobile'],
+                datasets: [
+                    {
+                        label: 'Low Risk',
+                        data: [45, 62, 38, 24, 31],
+                        backgroundColor: 'rgba(0, 255, 157, 0.6)',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Elevated Risk',
+                        data: [12, 18, 5, 8, 10],
+                        backgroundColor: 'rgba(245, 166, 35, 0.6)',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'High Risk',
+                        data: [3, 7, 1, 2, 4],
+                        backgroundColor: 'rgba(255, 85, 85, 0.6)',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, beginAtZero: true }
+                },
+                plugins: {
+                    legend: { position: 'top', align: 'end', labels: { boxWidth: 12, usePointStyle: true } }
+                }
+            }
+        });
+
+        // Skill Radar Chart
+        const ctxRadar = document.getElementById('skillRadarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Algorithms', 'System Design', 'Debugging', 'Optimization', 'Language Mastery'],
+                datasets: [{
+                    label: 'Top Candidate Average',
+                    data: [88, 75, 92, 85, 90],
+                    backgroundColor: 'rgba(0, 240, 255, 0.2)',
+                    borderColor: '#00F0FF',
+                    pointBackgroundColor: '#00F0FF',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#00F0FF',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.05)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        pointLabels: { color: '#64748B', font: { size: 10 } },
+                        ticks: { display: false, max: 100, min: 0 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
